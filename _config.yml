@@ -17,9 +17,9 @@ timezone: Asia/Ho_Chi_Minh
 # jekyll-seo-tag settings › https://github.com/jekyll/jekyll-seo-tag/blob/master/docs/usage.md
 # ↓ --------------------------
 
-title: Dinh Hoang                          # the main title
+title: HoangND                          # the main title
 
-tagline: Penetration Tester at Viettel Cyber Security   # it will display as the sub-title
+tagline: Penetration Tester at VCS   # it will display as the sub-title
 
 description: >-                        # used by seo meta and the atom feed
   Github pages, Hoang Nguyen Dinh, hoangnd32, hnd32, Penetration Tester.

@@ -3,7 +3,7 @@ title: HTB Under Construction
 author: HoangND
 date: 2021-09-06 02:07:00 +0700
 categories: [Writeups, HackTheBox]
-tags: [sqli, jwt]
+tags: [sqli, jwt, hack the box]
 ---
 
 Under Contruction dẫn người dùng thẳng vào một trang login 

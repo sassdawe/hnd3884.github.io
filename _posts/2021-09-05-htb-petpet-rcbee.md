@@ -3,7 +3,7 @@ title: HTB Petpet Rcbee
 author: HoangND
 date: 2021-09-05 08:51:00 +0700
 categories: [Writeups, HackTheBox]
-tags: [pil]
+tags: [pil, hack the box]
 ---
 
 Petpet rcbee là một web challenge. Sau khi xem xét thì thấy rằng trang web chỉ có một chức năng duy nhất là upload 1 ảnh sau đó "pet" ảnh này.
@@ -56,8 +56,8 @@ Sử dụng luôn craft image của CVE, chạy thử trên local
 
 ![image](https://user-images.githubusercontent.com/61985236/132112641-0d615a6f-1183-4c0c-8e83-5d2cc5f5d787.png)
 
-Oke vậy là đã RCE được, bây giờ cần làm thế nào để đọc được flag được dấu bên trong. Để ý răng có một đường dẫn tệp được public là biến UPLOAD_FOLDER (/static/petpets/).
-Vậy chỉ cần đọc file flag và ghi vào một file bất kỳ trong này là xong.
+Oke vậy là đã RCE được, bây giờ cần làm thế nào để đọc được flag được dấu bên trong. Để ý rằng có một đường dẫn tệp được public là UPLOAD_FOLDER (/static/petpets/).
+Vậy chỉ cần đọc file flag và ghi vào một file bất kỳ trong đường dẫn này là xong.
 
 ```
 %!PS-Adobe-3.0 EPSF-3.0
