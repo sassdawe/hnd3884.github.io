@@ -4,4 +4,4 @@ icon: fas fa-info
 order: 4
 ---
 
-Mình là Hoàng. Đây là blog mình dùng để lưu writeups CTF và PoC.
+Mình là Hoàng. Blog này mình dùng để viết Writeups là chủ yếu và PoC (nếu có 😂).
