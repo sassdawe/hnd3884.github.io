@@ -3,7 +3,7 @@ title: HTB Petpet Rcbee
 author: HoangND
 date: 2021-09-05 08:51:00 +0700
 categories: [Writeups, HackTheBox]
-tags: [writeups, hackthebox, pil]
+tags: [pil]
 ---
 
 Petpet rcbee là một web challenge. Sau khi xem xét thì thấy rằng trang web chỉ có một chức năng duy nhất là upload 1 ảnh sau đó "pet" ảnh này.
