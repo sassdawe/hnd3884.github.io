@@ -102,25 +102,41 @@
 
 {% endif %}
 
-<!-- Add lang-badge for code snippets -->
+<!-- Add header for code snippets -->
 
-{% if _content contains '<div class="language-' %}
-  {% assign _code_splits = _content | split: '<div class="language-' %}
-  {% assign _new_content = nil %}
+{% if _content contains '<div class="highlight"><code>' %}
+  {% assign _code_spippets = _content | split: '<div class="highlight"><code>' %}
+  {% assign _new_content = '' %}
 
-  {% for _snippet in _code_splits %}
-    {% if forloop.first %}
-      {% assign _new_content = _snippet %}
+  {% for _snippet in _code_spippets %}
+
+    {% if forloop.last %}
+      {% assign _new_content = _new_content | append: _snippet %}
+
     {% else %}
-      {% assign _lang = _snippet | split: ' ' | first %}
-      {% capture _tag_head %}<div lang="{{_lang}}" class="language-{% endcapture %}
-      {% assign _new_content = _new_content | append: _tag_head | append: _snippet %}
+
+      {% assign _left = _snippet | split: '><' | last%}
+
+      {% if _left contains 'file="' %}
+        {% assign _text = _left | split: 'file="' | last | split: '"' | first %}
+      {% else %}
+        {% assign _text = _left | split: 'language-' | last | split: ' ' | first %}
+      {% endif %}
+
+      {% assign _new_content = _new_content | append: _snippet
+          | append: '<div class="code-header" text-data="'
+          | append: _text
+          | append: '"><button data-original-title="'
+          | append: site.data.locales[lang].post.button.copy_code.succeed
+          | append: '"><i class="far fa-clone"></i></button></div>'
+          | append: '<div class="highlight"><code>'
+      %}
+
     {% endif %}
+
   {% endfor %}
 
-  {% if _new_content %}
-    {% assign _content = _new_content %}
-  {% endif %}
+  {% assign _content = _new_content %}
 
 {% endif %}
 

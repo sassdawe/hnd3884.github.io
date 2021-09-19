@@ -19,6 +19,13 @@ const resource = [
   '{{ "/app.js" | relative_url }}',
   '{{ "/sw.js" | relative_url }}',
 
+  /* --- HTML --- */
+  '{{ "/index.html" | relative_url }}',
+  '{{ "/404.html" | relative_url }}',
+  {% for tab in site.tabs %}
+    '{{ tab.url | relative_url }}',
+  {% endfor %}
+
   /* --- Favicons --- */
   {% assign favicon_path = "/assets/img/favicons" | relative_url %}
 
