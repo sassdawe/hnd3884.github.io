@@ -1,8 +1,8 @@
 ---
-title: Availability - H@acktivityCon 2021 CTF
+title: Availability - H@cktivityCon 2021 CTF
 author: HoangND
 date: 2021-09-19 15:55:00 +0700
-categories: [Writeups, H@acktivityCon 2021 CTF]
+categories: [Writeups, H@cktivityCon 2021 CTF]
 tags: [brute force, web]
 ---
 
