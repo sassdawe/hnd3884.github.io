@@ -23,7 +23,7 @@ mình thấy các hàm xử lý có gọi đến một internal url
 
 ![image](https://user-images.githubusercontent.com/61985236/133922618-5caa426c-880f-4b62-a8ac-174667d5fbd5.png)
 
-khả năng cao là web còn thay đổi dữ liệu của database chứ không chỉ thao tác với dữ liệu qua các biến mảng. Kết hợp điều này với chức năng thay đổi ảnh đại diện kết quả sẽ là SSRF
+khả năng cao là web còn thay đổi dữ liệu của database chứ không chỉ thao tác với dữ liệu qua các biến mảng. Kết hợp điều này với chức năng thay đổi ảnh đại diện kết quả sẽ là SSRF.
 
 Tiếp theo là xem xét flag nằm ở đâu. Trang web này khi vừa chạy sẽ tự động tạo ra một số account và khóa ban đầu. Trong đó khóa flag thuộc về user admin
 
@@ -35,11 +35,15 @@ Oke vậy để lấy được cờ thì mình phải có trong tay một tài k
 
 Hàm add_reader thực thi công việc thêm quyền read khóa cho một user theo id của user đó, để đỡ mất công mình sẽ lấy luôn id của một trong các tài khoản được tạo ban đầu khỏi cần tạo tài khoản khác
 
-```{"id":"243eae36-621a-47a6-b306-841bbffbcac4"}```
+```
+{"id":"243eae36-621a-47a6-b306-841bbffbcac4"}
+```
 
 và id khóa flag như sau
 
-```{"id": "afce78a8-23d6-4f07-81f2-47c96ddb10cf"}```
+```
+{"id": "afce78a8-23d6-4f07-81f2-47c96ddb10cf"}
+```
 
 Oke vậy là đã có request để thêm quyền đọc khóa flag cho user của mình. Vì là ssrf nên không cần xác thực gì thêm. Tiếp theo xem đoạn code xử lý thay ảnh đại diện, như đã nói ở trên đây là vị trí tiềm răng cho ssrf.
 
@@ -65,6 +69,3 @@ Kết quả gửi request
 Vậy là đã thêm quyền đọc flag thành công, bây giờ chỉ cần gọi request để lấy value của khóa thôi
 
 ![image](https://user-images.githubusercontent.com/61985236/133923842-66d271b6-59a5-4128-930e-f9f5f6998efd.png)
-
-Cám ơn bạn đã đọc ♡.
-

