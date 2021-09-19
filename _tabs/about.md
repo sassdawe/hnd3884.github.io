@@ -4,4 +4,5 @@ icon: fas fa-info
 order: 4
 ---
 
-Mình là Hoàng. Blog này mình dùng để viết Writeups là chủ yếu và PoC (nếu có 😂).
+
+> **Note**: Add Markdown syntax content to file `_tabs/about.md` and it will show up on this page.
