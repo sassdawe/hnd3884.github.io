@@ -114,3 +114,5 @@ SQLi verified. Để ý răng kết quả query database trả về trong messag
 ![image](https://user-images.githubusercontent.com/61985236/132137133-f87359e4-60f6-4722-a010-91afce181183.png)
 
 Như vậy data có thể lấy ra từ column thứ hai của câu query. Bước tiếp theo chỉ cần thêm một ít kiến thức về query trong SQLite để lấy được flag, mình xin phép dừng bài viết ở đây.
+
+Cám ơn bạn đã đọc ♡.
