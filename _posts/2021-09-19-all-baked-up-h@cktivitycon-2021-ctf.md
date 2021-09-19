@@ -1,7 +1,7 @@
 ---
-title: All Baked Up H@cktivityCon 2021 CTF
+title: All Baked Up - H@cktivityCon 2021 CTF
 author: HoangND
-date: 2021-09-20 00:00:00 +0700
+date: 2021-09-19 22:00:00 +0700
 categories: [Writeups, H@cktivityCon 2021 CTF]
 tags: [graphql, web, sqli]
 ---
