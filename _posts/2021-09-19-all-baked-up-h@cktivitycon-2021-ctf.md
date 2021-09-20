@@ -6,7 +6,7 @@ categories: [Writeups, H@cktivityCon 2021 CTF]
 tags: [graphql, web, sqli]
 ---
 
-## GRAPHQL
+## GraphQL
 Vì challenge này liên quan đến graphql và mình chưa biết về cái này nên sẽ mô tả qua ở đây một chút. GraphQL là ngôn ngữ truy vấn cho các API và runtime để thực hiện các truy vấn đó với dữ liệu. Nghĩa là người dùng sẽ tương tác với API thông qua graphql
 
 ![image](/assets/posts/all-baked-up/1.png)
