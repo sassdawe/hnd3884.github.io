@@ -8,11 +8,11 @@ tags: [sqli, jwt, hack the box]
 
 Under Contruction dẫn người dùng thẳng vào một trang login 
 
-![image](https://user-images.githubusercontent.com/61985236/132133845-4cf2b465-022d-4cdd-8da2-ff68ff0bcb34.png)
+![image](/assets/posts/under-construction/1.png)
 
 Mình đã thử detect SQLi ở đây tuy nhiên không thể khai thác được gì, thử đăng ký một tài khoản đơn sau đó login vào
 
-![image](https://user-images.githubusercontent.com/61985236/132133910-8b3e1eea-ca0a-46cd-8e3e-7a648870f1f8.png)
+![image](/assets/posts/under-construction/2.png)
 
 Ô kê giao diện này là lý do challenge có tên là 'under construction' 😂😂. Và trong giao diện này không hề có thêm chức năng gì. Thử xem cookie có gì hay không ?
 
@@ -88,7 +88,7 @@ Tuy nhiên verify lại cho phép mã hóa đối xứng HS256.
 Khi đó có thể tạo ra một token hợp lệ bằng thuật toán mã hóa đối xứng HS256 và public key. Khi token được verify, jwt sẽ coi public key như là shared key.
 Public key có được bằng cách decode token lấy được sau khi đăng nhập.
 
-![image](https://user-images.githubusercontent.com/61985236/132135871-d0a63932-6964-44d0-87ed-5b8e36b670fd.png)
+![image](/assets/posts/under-construction/3.png)
 
 Đến đây mình sử dụng các tool online tuy nhiên qua bao nhiêu lần tạo token hệ thống đều trả về lỗi 500 😶. Quá cay cú mình code lại đoạn sinh token theo đúng ngôn ngữ và framework của challenge.
 
@@ -107,10 +107,10 @@ var token = console.log(jwt.sign(payload, publicKey)) // Mặc định hàm sign
 
 Sau khi sử dụng token từ code này thì worked. Thử detect SQLi qua ```username="hoangnd'"``` xem thế nào
 
-![image](https://user-images.githubusercontent.com/61985236/132136905-bd1fc40a-a232-4a2f-b7e1-a338d0d255b1.png)
+![image](/assets/posts/under-construction/4.png)
 
 SQLi verified. Để ý răng kết quả query database trả về trong message ở trang chủ. Tiếp theo là dùng UNION attack ```username="aaa' union select 'mot','hai','ba'; -- a"```, phần username hiển thị trên message ở trang chủ như sau
 
-![image](https://user-images.githubusercontent.com/61985236/132137133-f87359e4-60f6-4722-a010-91afce181183.png)
+![image](/assets/posts/under-construction/5.png)
 
 Như vậy data có thể lấy ra từ column thứ hai của câu query. Bước tiếp theo chỉ cần thêm một ít kiến thức về query trong SQLite để lấy được flag, mình xin phép dừng bài viết ở đây.
