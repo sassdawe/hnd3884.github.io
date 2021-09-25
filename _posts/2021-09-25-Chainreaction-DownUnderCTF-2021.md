@@ -8,7 +8,7 @@ tags: [xss, web, unicode normalised]
 
 ## Recon
 
-![image](https://user-images.githubusercontent.com/61985236/134768470-0e313bc6-67b4-487a-9542-1ebcc067b6ce.png){:} Trang chủ
+![image](https://user-images.githubusercontent.com/61985236/134768470-0e313bc6-67b4-487a-9542-1ebcc067b6ce.png){: width="972" height="589" } Full screen width and center alignment
 
 Trang chủ của Chainreaction không có gì đáng bận tâm, ngoại trừ việc ảnh không load được, nhưng hiện tại vẫn không biết lí do thôi bỏ qua. Có hai button đăng ký đăng nhập. 
 Ở đây các form này không khai thác được SQLi. Quan sát một chút form đăng ký
