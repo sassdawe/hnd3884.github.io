@@ -6,6 +6,8 @@ categories: [Writeups, DownUnderCTF 2021]
 tags: [xss, web, unicode normalised]
 ---
 
+Đây là thời gian mình bắt đầu tham gia các chương trình tìm kiếm bug bounty. Tuy nhiên kết quả mang lại chưa được khả quan 😭. Để xốc lại tinh thần mình quyết định lại chơi CTF. Hi vọng bounty đầu tiên của mình sẽ xuất hiện trong tương lai gần.
+
 ## Recon
 
 ![image](https://user-images.githubusercontent.com/61985236/134768470-0e313bc6-67b4-487a-9542-1ebcc067b6ce.png)
@@ -53,6 +55,7 @@ Như vậy hệ thống sử dụng blacklist để kiểm tra thông tin userna
 Normalization (chuẩn hóa) là quá trình thay đổi độ dài biểu diễn nhị phân đối với một ký tự cụ thể. Có hai kiểu tương đương giữa các ký tự là _Canonical Equivalence_ và _Compatibility Equivalence_ (mình không biết nên đưa về tiếng việt thế nào)
 - Các ký tự tương đương theo kiểu Canonical Equivalence sẽ có cùng biểu diễn khi in hoặc hiển thị.
 - Trong khi đó Compatibility Equivalence là kiểu tương đương mềm dẻo hơn khi biểu diễn của hai ký tự tương đương theo kiểu này có thể khác nhau.
+
 Có 4 thuật toán chuẩn hóa được định nghĩa theo chuẩn Unicode: NFC, NFD, NFKD và __NFKD__, mỗi loại áp dụng kỹ thuật chuẩn hóa Canonical và Compatibility theo cách khác nhau. Bạn có thể đọc thêm về các kỹ thuật khác nhau tại Unicode.org.
 
 Chuẩn hóa Compatibility mềm dẻo hơn do đó có thể bị hacker khai thác để vược qua blacklist. Ví dụ ký tự '⑧' sau khi được chuẩn hóa theo kỹ thuật Compatibility sẽ thành ký tự '8', như vậy hacker có thể dùng ký tự này để vượt qua blacklist chứa '8'.
@@ -60,7 +63,7 @@ Chuẩn hóa Compatibility mềm dẻo hơn do đó có thể bị hacker khai t
 Để hiểu rõ hơn về Unicode Normalization cũng như cách khai thác, bạn có thể tham khảo [tài liệu sau](https://book.hacktricks.xyz/pentesting-web/unicode-normalization-vulnerability).
 
 ## Solve challenge
-Như vậy đã hiểu sơ qua về các khai thác NFKD normalization. Bắt tay vào exploit thôi, các ký tự đại diện mình sẽ cần để bypass blacklist sẽ là
+Như vậy đã hiểu sơ qua về các khai thác unicode normalization. Bắt tay vào exploit thôi, các ký tự đại diện mình sẽ cần để bypass blacklist sẽ là
 - ＜(%ef%bc%9c) thay cho ký tự <
 - ＞(%ef%bc%9e) thay cho ký tự >
 - ⁱ (%e2%81%b1) thay cho ký tự i
