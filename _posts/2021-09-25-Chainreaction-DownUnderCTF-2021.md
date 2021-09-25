@@ -24,16 +24,19 @@ _Trang đăng nhập_
 
 vậy là có trang đăng nhập riêng cho deverloper, vào luôn xem có gì hay ho
 
-![image](https://user-images.githubusercontent.com/61985236/134768551-75408121-ca67-4966-9463-d759f69f5a25.png){: style="max-width: 100%" } Trang đăng nhập cho developer
+![image](https://user-images.githubusercontent.com/61985236/134768551-75408121-ca67-4966-9463-d759f69f5a25.png){: style="max-width: 100%" } 
+_Trang đăng nhập cho developer_
 
 Hiểu sương sương nghĩa là nếu bạn có tài khoản thì có thể vào đường dẫn /devchat, đặc biệt hơn nếu có tài khoản admin thì có thể vào /admin. Hiện tại đương nhiên mình không thể vào trang admin được rồi, 
 ngó devchat xem có gì
 
-![image](https://user-images.githubusercontent.com/61985236/134768594-a9f1049f-714b-4279-84cf-5c907c803954.png){: style="max-width: 60%" } /devchat
+![image](https://user-images.githubusercontent.com/61985236/134768594-a9f1049f-714b-4279-84cf-5c907c803954.png)
+_/devchat_
 
 Vậy là có hẳn một trang public luôn đoạn chat nội bộ, đúng với mô tả của challenge 'Hệ thống được xây dựng bởi các sinh viên của trường đại học' 🤣🤣🤣. Đoạn chat có đề cập đến NFKD => NFKD normalised exploit. Tiếp theo tạo một tài khoản và đăng nhập, thì có thêm trang profile cho phép thay đổi thông tin cá nhân
 
-![image](https://user-images.githubusercontent.com/61985236/134777616-375ddcc1-647c-47e6-848f-eb48744a8daa.png){: style="max-width: 60%" } /devchat
+![image](https://user-images.githubusercontent.com/61985236/134777616-375ddcc1-647c-47e6-848f-eb48744a8daa.png) 
+_Trang thông tin tài khoản_
 
 Ta thấy rằng username được hiển thị lên giao diện thông qua lời chào welcome, thử XSS ở đây xem thế nào.
 
@@ -43,10 +46,10 @@ Như vậy hệ thống sử dụng blacklist để kiểm tra thông tin userna
 
 ## Unicode Normalization vulnerability 
 
-Normalization (chuẩn hóa) là quá trình thay đổi độ dài biểu diễn nhị phân đối với một ký tự cụ thể. Có hai kiểu tương đương giữa các ký tự là Canonical Equivalence và Compatibility Equivalence (mình không biết nên đưa về tiếng việt thế nào)
+Normalization (chuẩn hóa) là quá trình thay đổi độ dài biểu diễn nhị phân đối với một ký tự cụ thể. Có hai kiểu tương đương giữa các ký tự là _Canonical Equivalence_ và _Compatibility Equivalence_ (mình không biết nên đưa về tiếng việt thế nào)
 - Các ký tự tương đương theo kiểu Canonical Equivalence sẽ có cùng biểu diễn khi in hoặc hiển thị.
 - Trong khi đó Compatibility Equivalence là kiểu tương đương mềm dẻo hơn khi biểu diễn của hai ký tự tương đương theo kiểu này có thể khác nhau.
-Có 4 thuật toán chuẩn hóa được định nghĩa theo chuẩn Unicode: NFC, NFD, NFKD và NFKD, mỗi loại áp dụng kỹ thuật chuẩn hóa Canonical và Compatibility theo cách khác nhau. Bạn có thể đọc thêm về các kỹ thuật khác nhau tại Unicode.org.
+Có 4 thuật toán chuẩn hóa được định nghĩa theo chuẩn Unicode: NFC, NFD, NFKD và __NFKD__, mỗi loại áp dụng kỹ thuật chuẩn hóa Canonical và Compatibility theo cách khác nhau. Bạn có thể đọc thêm về các kỹ thuật khác nhau tại Unicode.org.
 
 Chuẩn hóa Compatibility mềm dẻo hơn do đó có thể bị hacker khai thác để vược qua blacklist. Ví dụ ký tự '⑧' sau khi được chuẩn hóa theo kỹ thuật Compatibility sẽ thành ký tự '8', như vậy hacker có thể dùng ký tự này để vượt qua blacklist chứa '8'.
 
@@ -86,7 +89,7 @@ Vậy là đã tạo được một node script để chèn javascript, bên bee
 
 ![image](https://user-images.githubusercontent.com/61985236/134780248-c3e390d4-f033-4648-97c8-b909cb7d7b95.png)
 
-Oke, đến đây để mạo danh admin, cần phải có được cookie đăng nhập của admin. How ? Đầu tiên cần quay lại một chút trang chát chít của hội dev. Chính ông admin đã tiết lộ như sau
+Oke, đến đây để mạo danh admin, cần phải có được cookie đăng nhập của admin. How? Đầu tiên cần quay lại một chút trang chát chít của hội dev. Chính ông admin đã tiết lộ như sau
 
 ![image](https://user-images.githubusercontent.com/61985236/134780389-516004ed-1d2d-4b64-9d6b-8ca467f38ae5.png)
 
@@ -106,6 +109,7 @@ Nghĩa là mình cứ ấn report là ông admin sẽ vào trang profile để c
 ```
 
 ![image](https://user-images.githubusercontent.com/61985236/134780741-24c0408b-9dce-4da6-a747-667e10a08d7b.png)
+_Kết quả gửi request_
 
 Tiếp theo là ấn report và quan sát bên beeceptor
 
