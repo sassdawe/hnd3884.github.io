@@ -10,29 +10,29 @@ tags: [xss, web, unicode normalised]
 
 ## Recon
 
-![image](https://user-images.githubusercontent.com/61985236/134768470-0e313bc6-67b4-487a-9542-1ebcc067b6ce.png)
+![image](/assets/posts/chainreaction/1.png)
 _Trang chủ_
 
 Trang chủ của Chainreaction không có gì đáng bận tâm, ngoại trừ việc ảnh không load được, nhưng hiện tại vẫn không biết lí do thôi bỏ qua. Có hai button đăng ký đăng nhập. 
 Ở đây các form này không khai thác được SQLi. Quan sát một chút form đăng ký
 
-![image](https://user-images.githubusercontent.com/61985236/134768675-1fec4bb8-fc48-4249-b28e-fa60a39efc4a.png)
+![image](/assets/posts/chainreaction/2.png)
 _Trang đăng ký_
 
 Username không được chứa các ký tự < và >. Vậy khả năng cao có thể bypass để khai thác lỗi XSS qua username. Cũng có một điều đặc biệt bên dưới form đăng nhập làm mình chú ý
 
-![image](https://user-images.githubusercontent.com/61985236/134768537-778e468c-5013-4c07-968d-13b121315325.png)
+![image](/assets/posts/chainreaction/3.png)
 _Trang đăng nhập_
 
 vậy là có trang đăng nhập riêng cho deverloper, vào luôn xem có gì hay ho
 
-![image](https://user-images.githubusercontent.com/61985236/134768551-75408121-ca67-4966-9463-d759f69f5a25.png)
+![image](/assets/posts/chainreaction/4.png)
 _Trang đăng nhập cho developer_
 
 Hiểu sương sương nghĩa là nếu bạn có tài khoản thì có thể vào đường dẫn /devchat, đặc biệt hơn nếu có tài khoản admin thì có thể vào /admin. Hiện tại đương nhiên mình không thể vào trang admin được rồi, 
 ngó devchat xem có gì
 
-![image](https://user-images.githubusercontent.com/61985236/134768594-a9f1049f-714b-4279-84cf-5c907c803954.png)
+![image](/assets/posts/chainreaction/5.png)
 _/devchat_
 
 Vậy là có hẳn một trang public luôn đoạn chat nội bộ, đúng với mô tả của challenge 🤣🤣🤣
@@ -41,12 +41,12 @@ Vậy là có hẳn một trang public luôn đoạn chat nội bộ, đúng v�
  
 Đoạn chat có đề cập đến NFKD => NFKD normalised exploit. Tiếp theo tạo một tài khoản và đăng nhập, thì có thêm trang profile cho phép thay đổi thông tin cá nhân
 
-![image](https://user-images.githubusercontent.com/61985236/134777616-375ddcc1-647c-47e6-848f-eb48744a8daa.png) 
+![image](/assets/posts/chainreaction/6.png) 
 _Trang thông tin tài khoản_
 
 Ta thấy rằng username được hiển thị lên giao diện thông qua lời chào welcome, thử XSS ở đây xem thế nào.
 
-![image](https://user-images.githubusercontent.com/61985236/134777639-266d3c3e-f3ed-4db0-8554-c2453e777a6f.png)
+![image](/assets/posts/chainreaction/7.png)
 
 Như vậy hệ thống sử dụng blacklist để kiểm tra thông tin username. Như đã đề cập ở trên, đoạn chat có nhắc đến cái gọi là NFKD, vậy chính xác NFKD là gì và khai thác thế nào mình sẽ trình bày ngắn gọn dưới đây.
 
@@ -90,19 +90,19 @@ Test thử script cơ bản, sử dụng beeceptor như một mockup server đ�
 ```
 Kết quả gửi request
 
-![image](https://user-images.githubusercontent.com/61985236/134780213-5a10d8ba-d9c7-4964-ac05-88acec404486.png)
+![image](/assets/posts/chainreaction/8.png)
 
 Vậy là đã tạo được một node script để chèn javascript, bên beeceptor cũng đã nhận được request
 
-![image](https://user-images.githubusercontent.com/61985236/134780248-c3e390d4-f033-4648-97c8-b909cb7d7b95.png)
+![image](/assets/posts/chainreaction/9.png)
 
 Oke, đến đây để mạo danh admin, cần phải có được cookie đăng nhập của admin. How? Đầu tiên cần quay lại một chút trang chát chít của hội dev. Chính ông admin đã tiết lộ như sau
 
-![image](https://user-images.githubusercontent.com/61985236/134780389-516004ed-1d2d-4b64-9d6b-8ca467f38ae5.png)
+![image](/assets/posts/chainreaction/10.png)
 
 Do tính năng của trang admin chưa được hoàn thành, admin sẽ sử dụng 1 cookie tĩnh để xác thực, browser của admin chắc chắn còn lưu cookie này. Thế làm thế nào để admin mở profile tài khoản của mình để kích hoạt XSS gửi cookie về cho beeceptor? Câu trả lời nằm ở tính năng report ở trang profile
 
-![image](https://user-images.githubusercontent.com/61985236/134780480-6e2a3b83-2fdc-4953-bad2-121450916e25.png)
+![image](/assets/posts/chainreaction/11.png)
 
 Nghĩa là mình cứ ấn report là ông admin sẽ vào trang profile để check lỗi => XSS. Test nhanh kẻo nguội bằng payload sau
 
@@ -115,14 +115,14 @@ Nghĩa là mình cứ ấn report là ông admin sẽ vào trang profile để c
 %ef%bc%9c/scr%e2%81%b1pt%ef%bc%9e
 ```
 
-![image](https://user-images.githubusercontent.com/61985236/134780741-24c0408b-9dce-4da6-a747-667e10a08d7b.png)
+![image](/assets/posts/chainreaction/12.png)
 _Kết quả gửi request_
 
 Tiếp theo là ấn report và quan sát bên beeceptor
 
-![image](https://user-images.githubusercontent.com/61985236/134780783-21a99a0e-69dc-4e9e-bb5f-50cbeff2b536.png)
+![image](/assets/posts/chainreaction/13.png)
 
 Vậy là đã lấy được cookie của admin, vào /admin lấy cờ thôi
 
-![image](https://user-images.githubusercontent.com/61985236/134780811-72bcc33c-37a0-43c3-a85a-a9605df6b57f.png)
+![image](/assets/posts/chainreaction/14.png)
 
