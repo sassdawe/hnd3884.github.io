@@ -24,7 +24,7 @@ _Trang đăng nhập_
 
 vậy là có trang đăng nhập riêng cho deverloper, vào luôn xem có gì hay ho
 
-![image](https://user-images.githubusercontent.com/61985236/134768551-75408121-ca67-4966-9463-d759f69f5a25.png){: style="max-width: 100%" } 
+![image](https://user-images.githubusercontent.com/61985236/134768551-75408121-ca67-4966-9463-d759f69f5a25.png)
 _Trang đăng nhập cho developer_
 
 Hiểu sương sương nghĩa là nếu bạn có tài khoản thì có thể vào đường dẫn /devchat, đặc biệt hơn nếu có tài khoản admin thì có thể vào /admin. Hiện tại đương nhiên mình không thể vào trang admin được rồi, 
@@ -33,7 +33,11 @@ ngó devchat xem có gì
 ![image](https://user-images.githubusercontent.com/61985236/134768594-a9f1049f-714b-4279-84cf-5c907c803954.png)
 _/devchat_
 
-Vậy là có hẳn một trang public luôn đoạn chat nội bộ, đúng với mô tả của challenge 'Hệ thống được xây dựng bởi các sinh viên của trường đại học' 🤣🤣🤣. Đoạn chat có đề cập đến NFKD => NFKD normalised exploit. Tiếp theo tạo một tài khoản và đăng nhập, thì có thêm trang profile cho phép thay đổi thông tin cá nhân
+Vậy là có hẳn một trang public luôn đoạn chat nội bộ, đúng với mô tả của challenge 🤣🤣🤣
+
+> Hệ thống được xây dựng bởi các sinh viên của trường đại học.
+ 
+Đoạn chat có đề cập đến NFKD => NFKD normalised exploit. Tiếp theo tạo một tài khoản và đăng nhập, thì có thêm trang profile cho phép thay đổi thông tin cá nhân
 
 ![image](https://user-images.githubusercontent.com/61985236/134777616-375ddcc1-647c-47e6-848f-eb48744a8daa.png) 
 _Trang thông tin tài khoản_
