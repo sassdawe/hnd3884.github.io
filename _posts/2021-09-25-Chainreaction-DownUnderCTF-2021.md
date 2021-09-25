@@ -8,16 +8,19 @@ tags: [xss, web, unicode normalised]
 
 ## Recon
 
-![image](https://user-images.githubusercontent.com/61985236/134768470-0e313bc6-67b4-487a-9542-1ebcc067b6ce.png){: width="972" height="589" } Full screen width and center alignment
+![image](https://user-images.githubusercontent.com/61985236/134768470-0e313bc6-67b4-487a-9542-1ebcc067b6ce.png)
+_Trang chủ_
 
 Trang chủ của Chainreaction không có gì đáng bận tâm, ngoại trừ việc ảnh không load được, nhưng hiện tại vẫn không biết lí do thôi bỏ qua. Có hai button đăng ký đăng nhập. 
 Ở đây các form này không khai thác được SQLi. Quan sát một chút form đăng ký
 
-![image](https://user-images.githubusercontent.com/61985236/134768675-1fec4bb8-fc48-4249-b28e-fa60a39efc4a.png){:} Trang đăng ký
+![image](https://user-images.githubusercontent.com/61985236/134768675-1fec4bb8-fc48-4249-b28e-fa60a39efc4a.png)
+_Trang đăng ký_
 
 Username không được chứa các ký tự < và >. Vậy khả năng cao có thể bypass để khai thác lỗi XSS qua username. Cũng có một điều đặc biệt bên dưới form đăng nhập làm mình chú ý
 
-![image](https://user-images.githubusercontent.com/61985236/134768537-778e468c-5013-4c07-968d-13b121315325.png){: style="max-width: 60%" } Trang đăng nhập
+![image](https://user-images.githubusercontent.com/61985236/134768537-778e468c-5013-4c07-968d-13b121315325.png)
+_Trang đăng nhập_
 
 vậy là có trang đăng nhập riêng cho deverloper, vào luôn xem có gì hay ho
 
