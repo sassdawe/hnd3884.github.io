@@ -48,7 +48,7 @@ social:
     - https://github.com/hnd3884        # change to your github homepage
     # Uncomment below to add more social links
     # - https://www.facebook.com/username
-    # - https://www.linkedin.com/in/username
+    - https://www.linkedin.com/in/hoang-nguyen-dinh-40b01b155/
 
 google_site_verification: TfvZ9qjq-FON4dsURjq-_zTPDu1wLUj3bMCMmf-atHU     # fill in to your verification string
 
@@ -83,13 +83,13 @@ theme_mode:   # [light|dark]
 img_cdn:
 
 # the avatar on sidebar, support local or CORS resources
-avatar:
+avatar: avatar.jpg
 
 # boolean type, the global switch for ToC in posts.
 toc: true
 
 comments:
-  active:         # The global switch for posts comments, e.g., 'disqus'.  Keep it empty means disable
+  active: giscus        # The global switch for posts comments, e.g., 'disqus'.  Keep it empty means disable
   # The active options are as follows:
   disqus:
     shortname:    # fill with the Disqus shortname. › https://help.disqus.com/en/articles/1717111-what-s-a-shortname
@@ -99,7 +99,7 @@ comments:
     issue_term:   # < url | pathname | title | ...>
   # Giscus options › https://giscus.app
   giscus:
-    repo:             # <gh-username>/<repo>
+    repo:             hnd3884/hnd3884.github.io # <gh-username>/<repo>
     repo_id:
     category:
     category_id:
