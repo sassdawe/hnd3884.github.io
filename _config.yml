@@ -26,7 +26,7 @@ title: HoangND 				# the main title
 tagline: Viettel Cyber Security   # it will display as the sub-title
 
 description: >-                        # used by seo meta and the atom feed
-  Github pages, Hoang Nguyen Dinh, hoangnd, hnd3884, Penetration Tester.
+  Github pages, Dinh Hoang, hoangnd, hnd3884, Penetration Tester.
 
 # fill in the protocol & hostname for your site, e.g., 'https://username.github.io'
 url: 'https://hnd3884.github.io'
@@ -40,7 +40,7 @@ twitter:
 social:
   # Change to your full name.
   # It will be displayed as the default author of the posts and the copyright owner in the Footer
-  name: Hoang Nguyen Dinh
+  name: Dinh Hoang
   email: hoangt2k24@gmail.com             # change to your email address
   links:
     # The first element serves as the copyright owner's link
@@ -99,12 +99,12 @@ comments:
     issue_term:   # < url | pathname | title | ...>
   # Giscus options › https://giscus.app
   giscus:
-    repo:             hnd3884/hnd3884.github.io # <gh-username>/<repo>
-    repo_id:
-    category:
-    category_id:
-    mapping:          # optional, default to 'pathname'
-    input_position:   # optional, default to 'bottom'
+    repo: hnd3884/hnd3884.github.io # <gh-username>/<repo>
+    repo_id: MDEwOlJlcG9zaXRvcnk0MDMwNzU4NDU=
+    category: Announcements
+    category_id: DIC_kwDOGAZzBc4CBUan
+    mapping: pathname         # optional, default to 'pathname'
+    input_position: top  # optional, default to 'bottom'
     lang:             # optional, default to the value of `site.lang`
 
 # Self-hosted static assets, optional › https://github.com/cotes2020/chirpy-static-assets
