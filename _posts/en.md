@@ -14,7 +14,7 @@ Microsoft's February - 2022 patch fixes a vulnerability with code CVE-2022-22005
 - Microsoft SharePoint Enterprise Server 2013 Service Pack 1
 - Microsoft SharePoint Enterprise Server 2016
 
-The analysis below the article was performed on Microsoft SharePoint Enterprise Server 2016 version
+The analysis below was performed on Microsoft SharePoint Enterprise Server 2016 version
 
 ## Phân tích bản vá
 Install patch January and February 2022 of Sharepoint 2016, gather Sharepoint dll files and decompile into source. Add a few post-production steps to remove unnecessary elements (comments, ...). Finally compare the two patches to find where the code is used by microsoft developers to patch. A Deserialization patch location is found at Microsoft.Office.Server.Internal.Charting.UI.WebControls.ChartPreviewImage.loadChartImage()
