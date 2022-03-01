@@ -5,7 +5,7 @@ Vulnerability Analysis CVE-2022-22005
 
 SharePoint is a platform for sharing and managing content, knowledge, and apps to support teamwork, quickly finding information, and collaborating seamlessly across the organization. More than 200,000 organizations and 190 million people use SharePoint for intranets, team sites, and content management. The number above is enough to see that this is always a big target for security researchers looking for vulnerabilities.
 
-With SharePoint, users can create an intranet (or intranet system) that works like any other website. In addition to a large site for the organization, sharepoint can divide small sub-sites for each group and internal department. Besides, this is a great content sharing management platform with customizable lists as much as you want. Some types of list are built-in on Sharepoint such as list of images, documents, forms... In addition to the built-in lists, users can install a new list and customize the properties of that list as they like. The powerful toolset for customizing on Sharepoint are Sharepoint Designer and InfoPath Designer. 
+With SharePoint, users can create an intranet (or intranet system) that works like any other website. In addition to a large site for the organization, sharepoint can divide small sub-sites for each group and internal department. Besides, this is a great content sharing management platform with customizable lists. Some types of list are built-in on Sharepoint such as list of images, documents, forms... In addition to the built-in lists, users can install a new list and customize the properties of that list as they want. The powerful toolsets for customizing on Sharepoint are Sharepoint Designer and InfoPath Designer. 
 
 # CVE-2022-22005
 Microsoft's February - 2022 patch fixes a vulnerability with code CVE-2022-22005. This vulnerability allows an attacker to execute code remotely and is scored 8.8 on the CVSSv3 calculator. Affected versions are listed below 
@@ -14,17 +14,17 @@ Microsoft's February - 2022 patch fixes a vulnerability with code CVE-2022-22005
 - Microsoft SharePoint Enterprise Server 2013 Service Pack 1
 - Microsoft SharePoint Enterprise Server 2016
 
-The analysis below was performed on Microsoft SharePoint Enterprise Server 2016 version
+The analysis below was performed on Microsoft SharePoint Enterprise Server 2016.
 
 ## Patch analysis
-Install patch January and February 2022 of Sharepoint 2016, gather Sharepoint dll files and decompile into source. Then add a few post-filter steps to remove unnecessary elements (comments, ...). Finally compare the two patches to find where the code is used by developers to patch. A Deserialization patch location is found at Microsoft.Office.Server.Internal.Charting.UI.WebControls.ChartPreviewImage.loadChartImage()
+Install patch January and February 2022 of Sharepoint 2016, gather Sharepoint dll files and decompile into source. Then add a few post-filter steps to remove unnecessary elements (comments, ...). Finally compare the two patches to find where the code is used by developers to patch. A deserialization patch location is found at Microsoft.Office.Server.Internal.Charting.UI.WebControls.ChartPreviewImage.loadChartImage()
 
 ![image](/assets/posts/cve-2022-22005/2.png)
 
 The patch uses a binder that limits what types are allowed to deserialize, which is what Microsoft used to do for bugs like this in the past. About the deserialize error you can learn more at [here](https://portswigger.net/web-security/deserialization).
 
 ## Trace code
-Learn a little bit about chart, this is a webpartpage - component of a page on Sharepoint. So it can be understood that in order for the data to go to the deserialize location, there must be a user account __ with permission to create page__. Combining debugging and creating a page that uses the chart, the code is called when the chart is loading data. Observe the function that causes the loadChartImage error, the deserialize data located in the buffer variable is set to the value via the FetchBinaryData(sessionKey) function.
+Learn a little bit about chart, this is a webpartpage - component of a page on Sharepoint. So it can be understood that in order for the data to go to the deserialize location, there must be a user account __ with permission to create page__. Combining debugging and creating a page that uses the chart, the code is hit when the chart is loading data. Observe the function that causes the loadChartImage error, the deserialize data located in the buffer variable is set via the FetchBinaryData(sessionKey) function.
 
 ```csharp
 // Microsoft.Office.Server.Internal.Charting.UI.WebControls.ChartPreviewImage.loadChartImage()
@@ -43,7 +43,7 @@ private ChartImageSessionBlock loadChartImage()
 }
 ```
 
-The code related to session state in Sharepoint. This is a mechanism to store the state of an object in the sharepoint, that state can be a file, an image, ... or specifically in this case a ChartImageSessionBlock object after serializing. These states will be stored in the database as binary data and mapped to a session key. So to exploit this error we need to control the binary data in the database, then through the loadChartImage function to deserialize an arbitrary object. Using the Burp Suite tool during debugging we will get a request to trigger vulnerability.
+The code relates to session state in Sharepoint. This is a mechanism to store the state of an object in the sharepoint, that state can be a file, an image, ... or specifically in this case a serialized ChartImageSessionBlock object. These states will be stored in the database as binary data and mapped to a session key. So to exploit this error we need to control the binary data in the database, then through the loadChartImage function to deserialize an arbitrary object. By using the Burp Suite tool during debugging we can get a request to trigger vulnerability.
 
 ```
 GET /_layouts/15/Chart/WebUI/Controls/ChartPreviewImage.aspx?sk=5264ebfb259840faa703bdbc976e069b_74929f85360d499d9f1d4f337bf49300&hash=2551012 HTTP/1.1
@@ -54,13 +54,13 @@ Cookie: stsSyncAppName=Client; stsSyncIconPath=; WSS_FullScreenMode=false
 Connection: Keep-Alive
 ```
 
-The variable sk here is the sessionKey passed into the FetchBinaryData function, of the form guid1_guid2 where guid1 is the id of the database and guid2 is the id of the ChartImageSessionBlock. To exploit the bug, we will change guid2 to the id of another session state that contains the binarydata that causes the vulnerability. So after completing the error triggering process, the next thing to do is figure out how to put any binary data into the session state table in the database.
+The variable sk here is the sessionKey passed into the FetchBinaryData function, of the form guid1_guid2 where guid1 is the id of the database and guid2 is the id of the ChartImageSessionBlock. To exploit the bug, we will change guid2 to the id of another session state that contains the binarydata that causes the vulnerability. The next thing to do is figure out how to put any binary data into the session state table in the database.
 
 [An article](https://www.zerodayinitiative.com/blog/2021/3/17/cve-2021-27076-a-replay-style-deserialization-attack-against-sharepoint) is published on the ZDI site about A previous vulnerability with code CVE-2021-27076 related to session state, using attachment mechanism on infopath form. When starting to create a new item in an infopath list, the item will be registered with a session key of __itemId__. Next, when attaching a file to this new item, that file will be saved as a binary data in the database with the key __attachmentId__. 
 
-Any binary data will be in the attachment file, and __attachmentId__ is what we need to get to trigger the vulnerability. The problem is that when creating a new item in the infolist, only __itemId__ will be returned in response. Through building the lab, found that the value of __attachmentId__ is in the binarydata of the item, so we need to find a way to get __attachmentId__ through __itemId__. The ZDI article also showed how to solve this problem, which is to replay __itemId__ to FormServerAttachments.aspx, which will take the item's binarydata and return it as a file.
+Arbitrary binary data is in the attachment file, and __attachmentId__ is what we need to get to trigger the vulnerability. The problem is that when creating a new item in the infolist, only __itemId__ will be returned in response. Through building the lab, found that the value of __attachmentId__ is in the binarydata of the item, so we need to find a way to get __attachmentId__ through __itemId__. The ZDI article also showed how to solve this problem, which is to replay __itemId__ to FormServerAttachments.aspx, which will take the item's binarydata and return it as a file.
 
-Here there are two directions to find the right request to FormServerAttachments.aspx, one is to try the functions, the other is to read the code and create the request yourself. The first option will be better because it will save time and we will also get a right-format request. In case the function cannot be determined, it is mandatory to follow option 2 to read the code. Because the binary is returned as a file, the FileDownload function caught my eye.
+Here there are two directions to find the right request to FormServerAttachments.aspx, one is to try the functions, the other is to read the code and craft the request yourself. The first option will be better because it will save time and we will also get a right-format request. In case the function cannot be determined, it is mandatory to follow option 2 to read the code. Because the binary is returned as a file, the FileDownload function caught my eye.
 
 ```csharp
 // Microsoft.Office.InfoPath.Server.Controls.FormServerAttachments.FileDownload(HttpContext) 
@@ -140,7 +140,7 @@ Luckily the variables required for request are pretty obvious - __fid__, __sid__
 if (string.IsNullOrEmpty(text) || string.IsNullOrEmpty(text2) || string.IsNullOrEmpty(value) || (string.Compare(strA, "fa", StringComparison.OrdinalIgnoreCase) != 0 && string.Compare(strA, "ip", StringComparison.OrdinalIgnoreCase) != 0))
 ```
 
-The required params must be non-empty, where __dl__ must be either the string 'fa' or 'ip'.
+So the required params must be non-empty, where __dl__ must be either the string 'fa' or 'ip'.
 
 ```csharp
 // fid -> text, sid -> text2, key -> value, dl -> strA
@@ -152,7 +152,7 @@ if (Canary.VerifyCanaryFromCookie(context, spsite, solutionById))
 }
 ```
 
-This code does get the solutionId from __sid__ and authenticate with the infopath canary inside the cookie, for example a cookie like this:
+This code gets the solutionId from __sid__ and authenticate it with the infopath canary inside the cookie, for example a cookie like this:
 
 ```
 _InfoPath_CanaryValueAGQX2G3RUCCXQRUNZHR3UB7IIEMSOL2MNFZXI4ZPORSXG5C7NFXGM327NRUXG5BPJF2GK3JPORSW24DMMF2GKLTYONXCWMKZLBZTE4TDI5WXC4ZSIIZGIUTINE4EI6DBGFWVKNKDLFZGSTJYLFNHE33VMJ5EGSLEOM=KBxeU4WXMZ3Yg8v0ZPZfAWcpoiLL/R3sfejthMFTfL1x9GqMoiIOMSS9XrT0gguJmdn0Yj2qw0gqlDJXT7X49A==|637806206864107501
@@ -190,7 +190,7 @@ internal static void DeserializeObjectsFromString(string value, Action<EnhancedB
 }
 ```
 
-So __key__ needs to be base64 format, see Base64DataStorage.Base64DataItem(binaryReader) function.
+So __key__ needs to be in base64 format, see Base64DataStorage.Base64DataItem(binaryReader) function.
 
 ```csharp
 // Microsoft.Office.InfoPath.Server.SolutionLifetime.Base64DataStorage.Base64DataItem.Base64DataItem(EnhancedBinaryReader)
@@ -224,14 +224,14 @@ so the next 3 positions in the key's structure will be
 - size (int)
 - version (int)
 
-Next need to consider which components will be required to give the correct value, the part to get the session state key is as follows
+Next let's consider which components will require correct value. The part to get the session state key is as follows
 
 ```csharp
 StateKey stateKey = StateKey.ParseKey(stateInfo.SerializedKey);
 item.EnsureData(stateKey);
 ```
   
-So the serializedKey will have the form guid1_guid2, where guid1 will be the database id and guid2 is the __itemId__ we put in, next see the item.EnsureData(stateKey) function
+So the serializedKey has the form guid1_guid2, where guid1 is the database id and guid2 is the __itemId__ we put in, next see the item.EnsureData(stateKey) function
 
 ```csharp
 // Microsoft.Office.InfoPath.Server.SolutionLifetime.Base64DataStorage.Base64DataItem.EnsureData(StateKey)
@@ -308,12 +308,12 @@ so __dl__ must have the value 'ip'. The variables sent to FormServerAttachments.
 After detailed analysis, the exploit steps are summarized as follows:
 1. Create an infopath list on the site.
 2. Open the form to create a new item on the list, save the __itemId__ from the response.
-3. Attachment file contains the payload on that item, but don't press save so that the session state is kept in the database.
-4. Put the itemId information obtained from step 2 into the request sent to FormServerAttachments.aspx, save the __attachmentId__ information from the response.
+3. Attachment file contains the payload on that item, but don't press save so that the session state can be kept in the database.
+4. Put the __itemId__ information obtained from step 2 into the request sent to FormServerAttachments.aspx, save the __attachmentId__ information from the response.
 5. Include __attachmentId__ in the request to trigger deserialize in ChartPreviewImage.
 
 ## Permission
-By default, a normal account has permission to create sub-sites and that account will have full permissions on the new site. Therefore, to exploit the bug, we only need an account with lowest permissions.
+By default, a normal account has permission to create sub-sites and that account will have full permissions on the new site. Therefore, we only need an account with default permissions to exploit the vulnerability.
     
 ## Proof of Concept
 [https://youtu.be/1Ckjh-uuNu4](https://youtu.be/1Ckjh-uuNu4)
