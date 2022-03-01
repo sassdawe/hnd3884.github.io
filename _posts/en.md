@@ -1,12 +1,4 @@
----
-title: CVE-2022-22005 Microsoft Sharepoint RCE
-author: HoangND
-date: 2022-02-22 20:00:00 +0700
-categories: [One-day analysis]
-tags: [cve-2022-22005, microsoft sharepoint]
----
-
-Phân tích lỗi CVE-2022-22005
+Vulnerability Analysis CVE-2022-22005
 
 # Microsoft Sharepoint
 ![image](/assets/posts/cve-2022-22005/1.png)
