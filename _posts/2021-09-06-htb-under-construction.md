@@ -14,7 +14,7 @@ Mình đã thử detect SQLi ở đây tuy nhiên không thể khai thác đư�
 
 ![image](/assets/posts/under-construction/2.png)
 
-Ô kê giao diện này là lý do challenge có tên là 'under construction' 😂😂. Và trong giao diện này không hề có thêm chức năng gì. Thử xem cookie có gì hay không ?
+OK giao diện này là lý do challenge có tên là 'under construction' 😂😂. Và trong giao diện này không hề có thêm chức năng gì. Thử xem cookie có gì hay không ?
 
 > session=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InVzZXIiLCJwayI6Ii0tLS0tQkVHSU4gUFVCTElDIEtFWS0tLS0tXG5NSUlCSWpBTkJna3Foa2lHOXcwQkFRRUZBQU9DQVE4QU1JSUJDZ0tDQVFFQTk1b1RtOUROemNIcjhnTGhqWmFZXG5rdHNiajFLeHhVT296dzB0clA5M0JnSXBYdjZXaXBRUkI1bHFvZlBsVTZGQjk5SmM1UVowNDU5dDczZ2dWRFFpXG5YdUNNSTJob1VmSjFWbWpOZVdDclNyRFVob2tJRlpFdUN1bWVod3d0VU51RXYwZXpDNTRaVGRFQzVZU1RBT3pnXG5qSVdhbHNIai9nYTVaRUR4M0V4dDBNaDVBRXdiQUQ3MytxWFMvdUN2aGZhamdwekhHZDlPZ05RVTYwTE1mMm1IXG4rRnluTnNqTk53bzVuUmU3dFIxMldiMllPQ3h3MnZkYW1PMW4xa2YvU015cFNLS3ZPZ2o1eTBMR2lVM2plWE14XG5WOFdTK1lpWUNVNU9CQW1UY3oydzJrekJoWkZsSDZSSzRtcXVleEpIcmEyM0lHdjVVSjVHVlBFWHBkQ3FLM1RyXG4wd0lEQVFBQlxuLS0tLS1FTkQgUFVCTElDIEtFWS0tLS0tXG4iLCJpYXQiOjE2MzA4NTc1NDF9.EU9cSpXjqAbjMwbg68QSKDpv-StQSWvjjHhI_5-4eNbyEk_sfnKcsFShYChzc3YsISG6ZNB58yfegyaK6SC41tBrmXBJb2U80eLk1F5QWf6PKsjVWXnPbNIcse6iCSd6UR0gVdXCN5q0I6VesipTr0dGRloUKYkAGEb17FUt2k1xdMPCLiinNXIQZ_3i4Gd0hpvo9rqA4HVWRWZgNqUL5O2qrm1otx8OpdGg4InWy9WaC9TiyLAdjkUtJSNdn_1IiiYn0tt8858jWyaVAm_-EEztGDikfkghdYehkuFEum7fZ0f4Ut9YgjjkFN6CQu4mg5RK5WcfGiq6uf69Y7AOrw
 
